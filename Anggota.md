@@ -78,7 +78,7 @@
 		$viewDetail = $this->base_view . '/v_member_new_detail_onloan';
 	}
 
-	//view
+	//view proses data model
 	if ($dataDetail->num_rows() > 0) { //jika masih ada pinjaman
 		$onLib = $dataDetail->result_array();
 		foreach ($onLib as $rOwner) {
