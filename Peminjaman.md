@@ -1,6 +1,6 @@
 # Peminjaman (Loan)
-- View (&#10003;)
-- Index, Proses, Detail (&#10003;)
+- View [&#10003;]
+- Index, Proses, Detail [&#10003;]
 - **Reloan**
 	- insert fine_log jika ada denda (&#10003;)
 	- pengembalian ill :: belum di testing
@@ -238,9 +238,9 @@ function retur($data, $loanID, $reloan = false)
 }
 ```
 
-- bp (&#10003;)
-- loanMail (&#10003;)
-- in_reloan_staf (&#10003;)
+- bp [&#10003;]
+- loanMail [&#10003;]
+- in_reloan_staf [&#10003;]
 - tutup_kasus [member]
 - loanList [superuser]
 - loanlist detail [superuser]
