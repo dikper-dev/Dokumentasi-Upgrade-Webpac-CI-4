@@ -78,7 +78,7 @@
 		$viewDetail = $this->base_view . '/v_member_new_detail_onloan';
 	}
 
-	//view proses data model
+	//view
 	if ($dataDetail->num_rows() > 0) { //jika masih ada pinjaman
 		$onLib = $dataDetail->result_array();
 		foreach ($onLib as $rOwner) {
@@ -131,7 +131,7 @@
 		$dataDetail = ['activeView' => 'anggota/widgets/detail_onloan', 'data' => ['dataDetail' => $resonloan]];
 	}
  
-	//view
+	//view proses data model
 	if ($dataDetail->getNumRows() > 0) :
 		$headTable = ['No' => 'min-w-10px', 'Barcode' => 'min-w-100px', 'Judul' => 'min-w-200px', 'Pinjam' => 'min-w-100px', 'Harus Kembali' => 'min-w-100px'  ];
 
