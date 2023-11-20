@@ -2,7 +2,6 @@
 - View (&#10003;)
 - Index, Proses, Detail (&#10003;)
 - **Reloan**
-  *Catatan*
 	- insert fine_log jika ada denda (&#10003;)
 	- pengembalian ill :: belum di testing
 	- update FRS (&#10003;)
