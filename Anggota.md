@@ -125,6 +125,12 @@
         return $query;
     }
 
+ 	//controller
+	if ($detail == 'on-loan') {
+		$resonloan = $this->membermodel->onLoanMemberLibraryCount($userAccount);
+		$dataDetail = ['activeView' => 'anggota/widgets/detail_onloan', 'data' => ['dataDetail' => $resonloan]];
+	}
+ 
 	//view
 	if ($dataDetail->getNumRows() > 0) :
 		$headTable = ['No' => 'min-w-10px', 'Barcode' => 'min-w-100px', 'Judul' => 'min-w-200px', 'Pinjam' => 'min-w-100px', 'Harus Kembali' => 'min-w-100px'  ];
@@ -171,12 +177,6 @@
 	else :
 		<span class="fw-bolder fs-6 text-gray-700">Tidak ada peminjaman</span>
 	endif;
-
-	//controller
-	if ($detail == 'on-loan') {
-		$resonloan = $this->membermodel->onLoanMemberLibraryCount($userAccount);
-		$dataDetail = ['activeView' => 'anggota/widgets/detail_onloan', 'data' => ['dataDetail' => $resonloan]];
-	}
 	```
 
 - Riwayat Peminjaman [&#10003;]
