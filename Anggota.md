@@ -293,7 +293,7 @@
 	}
 	```
 - Pinjaman TPB [&#10003;]
-- Data Kasus, Input Kasus, Tutup Kasus [&#10003;]
+- Data Kasus, Input Kasus, Tutup Kasus, Update Loan, Update FRS Wisuda json [&#10003;]
 - fungsi updateFRS [&#10003;] :: cek ulang
 - Wisuda
 - FRS [&#10003;]
