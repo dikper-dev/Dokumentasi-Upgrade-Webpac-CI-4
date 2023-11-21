@@ -27,7 +27,7 @@
 	```php
 	// controller
 	if ($this->session->has('cachedUser')) {
-                $cachedData = $this->session->get('cachedUser');
+ 		$cachedData = $this->session->get('cachedUser');
                 $oldSearchKeyword = $cachedData['keyword'];
 
                 if ($oldSearchKeyword === $cari) {
@@ -35,7 +35,7 @@
                 } else {
                     $this->session->remove('cachedUser');
                 }
-            }
+ 	}
 
  	if (!isset($cariUser)) {
  		$where = array('userAccount' => $cari);
@@ -296,5 +296,5 @@
 - Data Kasus, Input Kasus, Tutup Kasus [&#10003;]
 - fungsi updateFRS [&#10003;] :: cek ulang
 - Wisuda
-- FRS
+- FRS [&#10003;]
 - SIX [&#10003;]
