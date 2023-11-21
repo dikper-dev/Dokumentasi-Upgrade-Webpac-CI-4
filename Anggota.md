@@ -1,7 +1,6 @@
 # Anggota (Member)
 ## Modul
 - **Search** [&#10003;]
-	- Gabung model
 	```php
 	//controller search
 	$data['cari'] = $cari;
@@ -24,23 +23,33 @@
 		$cariUser = $this->db->get('user_account u');
 	}
 	```
-	to
+	to *handle query looping jika active view*
 	```php
-	// new controller
-	$whereMatch = array('u.userAccount' => $cari, 'u.userINA' => $cari, 'u.userName' => $cari);
-	$cariUser = $this->membermodel->searchMatchAnggota($where, $whereMatch);
+	// controller
+	if ($this->session->has('cachedUser')) {
+                $cachedData = $this->session->get('cachedUser');
+                $oldSearchKeyword = $cachedData['keyword'];
 
-	//model
-	function searchMatchAnggota($where, $whereMacth)
-    {
-        $b = $this->db->table('user_account u');
-        $b->select('u.userAccount,u.userName,u.itbAccount,u.userEmail,u.userEmailITB,u.userAddress, u.userINA, u.userPhone, u.campusCode,u.userType,u.rootID, u.officeAccount,u.userOrientationed,t.typeName, t.typeCss');
-        $b->join('user_type t', 't.id = u.userType', 'left');
-        $b->where($where);
-        $b->orLike($whereMacth, 'match');
-        $b->groupBy('u.userAccount');
-        return $b->get();
-    }
+                if ($oldSearchKeyword === $cari) {
+                    $cariUser = $cachedData['data'];
+                } else {
+                    $this->session->remove('cachedUser');
+                }
+            }
+
+ 	if (!isset($cariUser)) {
+ 		$where = array('userAccount' => $cari);
+                $cariUser = $this->membermodel->cariAnggota($where);
+                if ($cariUser->getNumRows() == 0) {
+                    $where = array(
+                        'u.userAccount' => $cari,
+                        'u.userINA' => $cari,
+                        'u.userName' => $cari
+                    );
+                    $cariUser = $this->membermodel->matchAnggota($where);
+                }
+                $this->session->set('cachedUser', ['keyword' => $cari, 'data' => $cariUser]);
+ 	}
 	```
 - **View Add**
 - **View Edit**
