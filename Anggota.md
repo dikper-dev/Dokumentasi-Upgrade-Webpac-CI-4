@@ -283,8 +283,9 @@
 	    $jamKembali = $rHL['returnedTime'] . ' &raquo ' . $rHL['staffNameReturn'];
 	}
 	```
-- Pinjaman TPB
-- Data Kasus
+- Pinjaman TPB [&#10003;]
+- Data Kasus, Input Kasus, Tutup Kasus [&#10003;]
+- fungsi updateFRS [&#10003;] :: cek ulang
 - Wisuda
 - FRS
-- SIX
+- SIX [&#10003;]
