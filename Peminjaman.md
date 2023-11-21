@@ -241,6 +241,6 @@ function retur($data, $loanID, $reloan = false)
 - bp [&#10003;]
 - loanMail [&#10003;]
 - in_reloan_staf [&#10003;]
-- tutup_kasus [member]
+- tutup_kasus (&#10003;)
 - loanList [superuser]
 - loanlist detail [superuser]
