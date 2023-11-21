@@ -181,6 +181,108 @@
 	```
 
 - Riwayat Peminjaman [&#10003;]
+ 	 ```php
+	//model
+	function loanHistory($userAccount, $groupBy)
+	{
+	    $s = "SELECT library.libraryTitle,library.libraryID,TO_DAYS(CURDATE())-TO_DAYS(loan.returnDate) as hari,
+	        loan.libraryMainNumber,loan.returnDate,loan.loanDate,loan.returnedDate, loan.returnedTime, loan.staffReturn, 
+	        owner.ownerID, owner.ownerName, staff.staffName " .
+	        "FROM library " .
+	        "JOIN library_dataunit ON library_dataunit.libraryID=library.libraryID " .
+	        "JOIN loan ON loan.libraryMainNumber=library_dataunit.libraryMainNumber " .
+	        "JOIN staff ON staff.staffID = loan.staffLoan " .
+	        "JOIN owner ON owner.ownerID = loan.ownerID " .
+	        "WHERE loan.userAccount='" . $userAccount . "' ";
+	    if ($groupBy != '') {
+	        $s .= "GROUP BY " . $groupBy;
+	    }
+	    $s .= " ORDER BY loan.loanID DESC ";
+	    $query = $this->db->query($s);
+	
+	    return $query;
+	}
+	
+	//controller
+	$dataDetail = $this->membermodel->loanHistory($userAccount, 'loan.loanID');
+	$viewDetail = $this->base_view . '/v_member_new_detail_history_loan';
+	
+	if ($dataDetail->num_rows()) {
+	    $arrStaffRetur = array_column($dataDetail->result_array(), 'staffReturn');
+	    $this->db->where_in('staffID', $arrStaffRetur);
+	    $staffRetur = $this->db->get('staff');
+	    $data['staffReturn'] = array_column($staffRetur->result_array(), 'staffName', 'staffID');
+	}
+	
+	//view
+	$statusKembali = '';
+	$jamKembali = '';
+	if (($rHL['returnedDate'] == '0000-00-00') || (is_null($rHL['returnedDate']))) {
+	    $statusKembali = $this->atfungsi->spanStyle('belum kembali','danger');
+	}
+	else{
+	    $statusKembali = $this->fungsi->date_to_tanggal($rHL['returnedDate']);
+	    $jamKembali = $rHL['returnedTime'].' &raquo '.$staffReturn[$rHL['staffReturn']];
+	}
+	```
+	to
+	```php
+	//model
+	function loanHistory($userAccount, $page, $perPage)
+	{
+	    $startFrom = ($page - 1) * $perPage;
+	    $sql = "SELECT SQL_CALC_FOUND_ROWS
+	                MAX(library.libraryTitle) as libraryTitle,
+	                MAX(library.libraryID) as libraryID,
+	                TO_DAYS(CURDATE())-TO_DAYS(loan.returnDate) as hari,
+	                loan.libraryMainNumber,
+	                loan.returnDate,
+	                loan.loanDate,
+	                loan.returnedDate,
+	                loan.returnedTime, 
+	                owner.ownerID,
+	                owner.ownerName,
+	                loan.staffReturn AS staffReturn,
+	                loan.staffLoan AS staffLoan,
+	                loanStaff.staffName AS staffNameLoan,
+	                returnStaff.staffName AS staffNameReturn
+	            FROM library
+	            JOIN library_dataunit ON library_dataunit.libraryID = library.libraryID
+	            JOIN loan ON loan.libraryMainNumber = library_dataunit.libraryMainNumber
+	            JOIN staff AS loanStaff ON loanStaff.staffID = loan.staffLoan
+	            JOIN owner ON owner.ownerID = loan.ownerID
+	            LEFT JOIN staff AS returnStaff ON returnStaff.staffID = loan.staffReturn
+	            WHERE loan.userAccount = '" . $userAccount . "'
+	            GROUP BY loan.loanID
+	            ORDER BY loan.loanID DESC
+	            LIMIT " . $startFrom . ", " . $perPage . "";
+	    $query = $this->db->query($sql);
+	    $totalRowsQuery = $this->db->query("SELECT FOUND_ROWS() as totalRows");
+	    $totalRows = $totalRowsQuery->getRow()->totalRows;
+	
+	    return [
+	        'results' => $query,
+	        'totalRows' => $totalRows
+	    ]; // Return paginated data with totalRows
+	}
+	
+	//controller
+	$page = (int) ($this->request->getGet('page') ?? 1);
+	$resloanhostory = $this->membermodel->loanHistory($userAccount, $page, $this->perPage);
+	$pager_links = $this->pager->makeLinks($page, $this->perPage, $resloanhostory['totalRows'], 'temp_pager');
+	$sendData = ['dataDetail' => $resloanhostory['results'], 'perPage' => $this->perPage, 'total' => $resloanhostory['totalRows'], 'pager_links' => $pager_links];
+	$dataDetail = ['activeView' => 'anggota/widgets/history_loan', 'data' => $sendData];
+	
+	//view
+	$statusKembali = '';
+	$jamKembali = '';
+	if (($rHL['returnedDate'] == '0000-00-00') || (is_null($rHL['returnedDate']))) {
+	    $statusKembali = badgeStyle('danger', 'belum kembali');
+	} else {
+	    $statusKembali = date_to_tanggal($rHL['returnedDate']);
+	    $jamKembali = $rHL['returnedTime'] . ' &raquo ' . $rHL['staffNameReturn'];
+	}
+	```
 - Pinjaman TPB
 - Data Kasus
 - Wisuda
