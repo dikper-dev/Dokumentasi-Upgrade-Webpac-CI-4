@@ -52,7 +52,15 @@
  	}
 	```
 - **View Add**
-- **View Edit**
+- **View Edit** [&#10003;]
+  	- Update Loan jika edit [&#10003;]
+  	```php
+   	//controller edit_post
+   	$pesan = $this->membermodel->upData($id, $nimLama, $upData);
+   	//remove dlu cache search soalnya search?q=userakun
+   	$this->session->remove('cachedUser');
+   	return redirect()->to(base_url() . 'pengguna/anggota/search?q=' . $userAccount)->with('pesan', $pesan);
+   	```
 - **Sedang Dipinjaman** [&#10003;]
 	- Merubah Model
 	```php
@@ -294,7 +302,6 @@
 	```
 - Pinjaman TPB [&#10003;]
 - Data Kasus, Input Kasus, Tutup Kasus, Update Loan, Update FRS Wisuda json [&#10003;]
-- fungsi updateFRS [&#10003;] :: cek ulang
-- Wisuda
+- Wisuda [&#10003;]
 - FRS [&#10003;]
 - SIX [&#10003;]
