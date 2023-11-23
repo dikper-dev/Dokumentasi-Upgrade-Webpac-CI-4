@@ -1,4 +1,4 @@
-# Anggota (Member)
+# Anggota (Member) [&#10003;]
 ## Modul
 - **Search** [&#10003;]
 	```php
@@ -24,91 +24,86 @@
 	}
 	```
 	to *handle query looping jika active view*
-	```php
-	// controller
-	if ($this->session->has('cachedUser')) {
+  ```php
+  if ($this->session->has('cachedUser')) {
  		$cachedData = $this->session->get('cachedUser');
-                $oldSearchKeyword = $cachedData['keyword'];
-
-                if ($oldSearchKeyword === $cari) {
-                    $cariUser = $cachedData['data'];
-                } else {
-                    $this->session->remove('cachedUser');
-                }
+    $oldSearchKeyword = $cachedData['keyword'];
+    if ($oldSearchKeyword === $cari) {
+        $cariUser = $cachedData['data'];
+    } else {
+        $this->session->remove('cachedUser');
+    }
  	}
-
- 	if (!isset($cariUser)) {
+  if (!isset($cariUser)) {
  		$where = array('userAccount' => $cari);
-                $cariUser = $this->membermodel->cariAnggota($where);
-                if ($cariUser->getNumRows() == 0) {
-                    $where = array(
-                        'u.userAccount' => $cari,
-                        'u.userINA' => $cari,
-                        'u.userName' => $cari
-                    );
-                    $cariUser = $this->membermodel->matchAnggota($where);
-                }
-                $this->session->set('cachedUser', ['keyword' => $cari, 'data' => $cariUser]);
+    $cariUser = $this->membermodel->cariAnggota($where);
+    if ($cariUser->getNumRows() == 0) {
+        $where = array(
+            'u.userAccount' => $cari,
+            'u.userINA' => $cari,
+            'u.userName' => $cari
+        );
+        $cariUser = $this->membermodel->matchAnggota($where);
+    }
+    $this->session->set('cachedUser', ['keyword' => $cari, 'data' => $cariUser]);
  	}
-	```
+  ```
 - **View Add**
   	```php
    	//view
    	if ($inputINA != '' && $cekUser != null) {
-	    $user = $cekUser->row();
-	    $this->atfungsi->openBlock();
-	    $this->atfungsi->openTable();
-	    echo '<tr><td>Nama</td><td>' . $user->userName . '</td></tr>';
-	    echo '<tr><td>NIP/Nopeg</td><td>' . $user->userAccount . '</td></tr>';
-	    $this->atfungsi->closeTable();
-	    echo '<a href="' . $BASE_CTRL . '/search?tcari=' . $user->userAccount . '" class="btn btn-info"><i class="feather icon-external-link"></i> Lihat Detil</a>';
-	    $this->atfungsi->closeBlock();
-	}
-	//controller
-   	//cek di DB
+        $user = $cekUser->row();
+        $this->atfungsi->openBlock();
+        $this->atfungsi->openTable();
+        echo '<tr><td>Nama</td><td>' . $user->userName . '</td></tr>';
+        echo '<tr><td>NIP/Nopeg</td><td>' . $user->userAccount . '</td></tr>';
+        $this->atfungsi->closeTable();
+        echo '<a href="' . $BASE_CTRL . '/search?tcari=' . $user->userAccount . '" class="btn btn-info"><i class="feather icon-external-link"></i> Lihat Detil</a>';
+        $this->atfungsi->closeBlock();
+    }
+	  //controller
    	$cekUserDB = $this->db->get_where('user_account', $where);
-	if ($cekUserDB->num_rows()) {
-   		$data['pesan'] = array($itbAkun . ' sudah ada!', 'warning');
-                $data['inputINA'] = $itbAkun;
-                $data['cekUser'] = $cekUserDB;
-        } else {
-                $data['user'] = array(
-		'itbAkun' => $itbAkun,
-   		'userAccount' => $nip,
-   		'userINA' => $uid,
-                'userName' => $cn,
-                'userType' => $userType,
-                'userEmailITB' => $mail,
-                'userEmail' => implode(', ', explode(';', $mailnonitb)),
-                'unitKerja' => $unit_kerja
-                 );
-		$data['activeView'] = $this->base_view . '/v_member_new_add';
+    if ($cekUserDB->num_rows()) {
+        $data['pesan'] = array($itbAkun . ' sudah ada!', 'warning');
+        $data['inputINA'] = $itbAkun;
+        $data['cekUser'] = $cekUserDB;
+    } else {
+      $data['user'] = array(
+        'itbAkun' => $itbAkun,
+        'userAccount' => $nip,
+        'userINA' => $uid,
+        'userName' => $cn,
+        'userType' => $userType,
+        'userEmailITB' => $mail,
+        'userEmail' => implode(', ', explode(';', $mailnonitb)),
+        'unitKerja' => $unit_kerja
+      );
+      $data['activeView'] = $this->base_view . '/v_member_new_add';
    	}
-    	```
+    ```
    	to *pindah controller*
-	```php
-   	//langsung redirect search
-	$cekUserDB = $this->allModel->getTable('user_account', $where);
-                if ($cekUserDB->getNumRows()) {
-                    $cekUser = $cekUserDB->getRow();
-                    return redirect()->to(base_url() . 'pengguna/anggota/search?q=' . $cekUser->userAccount)->with('pesan', ['warning', $itbAkun . ' <b>Sudah ada!</b>']);
-                } else {
-                    $data['userType'] = $this->allModel->getT('user_type')->getResultArray();
-                    $data['user'] = array(
-                        'itbAkun' => $mail,
-                        'userAccount' => $nip,
-                        'userINA' => $uid,
-                        'userName' => $cn,
-                        'userType' => $userType,
-                        'userEmailITB' => $mail,
-                        'userEmail' => implode(', ', explode(';', $mailnonitb)),
-                        'unitKerja' => $unit_kerja
-                    );
-                }
-
-                $data['inputINA'] = $itbAkun;
-                return view('anggota/anggota_new_add', $data);
-	```
+	  ```php
+    //langsung redirect search
+	  $cekUserDB = $this->allModel->getTable('user_account', $where);
+    if ($cekUserDB->getNumRows()) {
+        $cekUser = $cekUserDB->getRow();
+        return redirect()->to(base_url() . 'pengguna/anggota/search?q=' . $cekUser->userAccount)->with('pesan', ['warning', $itbAkun . ' <b>Sudah ada!</b>']);
+    } else {
+        $data['userType'] = $this->allModel->getT('user_type')->getResultArray();
+        $data['user'] = array(
+            'itbAkun' => $mail,
+            'userAccount' => $nip,
+            'userINA' => $uid,
+            'userName' => $cn,
+            'userType' => $userType,
+            'userEmailITB' => $mail,
+            'userEmail' => implode(', ', explode(';', $mailnonitb)),
+            'unitKerja' => $unit_kerja
+        );
+    }
+    $data['inputINA'] = $itbAkun;
+    return view('anggota/anggota_new_add', $data);
+    ```
 - **View Edit** [&#10003;]
   	- Update Loan jika edit [&#10003;]
   	```php
