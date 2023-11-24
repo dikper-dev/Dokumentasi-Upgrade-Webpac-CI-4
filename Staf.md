@@ -73,6 +73,7 @@ $data['staff'] = $this->staffmodel->staffList($where);
 ```
 to
 ```php
+//controller
 $bCari = $this->request->getPost('bCari');
 $superuser = $this->session->groupName;
 $where = $whereConditions = '';
