@@ -104,6 +104,35 @@ $where = $this->appendStaffActiveCondition($where, $staffActive);
 
 $page = (int) ($this->request->getGet('page') ?? 1);
 $resstaf = $this->sm->staffList($where, $page, $this->perPage);
+
+function generateSearchConditions($fields, $cari)
+{
+    $where = '';
+    foreach ($fields as $index => $field) {
+        $condition = ($index === 0) ? '(' : ' OR ';
+        $condition .= $field . ' LIKE "%' . $cari . '%" ';
+        $where .= $condition;
+    }
+    $where .= ')';
+
+    return $where;
+}
+
+function combineConditions($existingCondition, $newCondition, $operator)
+{
+    if ($newCondition) {
+        $existingCondition .= ($existingCondition != '') ? $operator : '';
+        $existingCondition .= $newCondition;
+    }
+    return $existingCondition;
+}
+
+function appendStaffActiveCondition($where, $staffActive)
+{
+    $where .= ($where != '') ? ' AND ' : '';
+    $where .= 'staff.staffIsActive="' . $staffActive . '"';
+    return $where;
+}
 ```
 - **Tambah Staf**
 - **Aksi**
