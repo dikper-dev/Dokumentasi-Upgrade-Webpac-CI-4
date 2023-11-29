@@ -7,7 +7,7 @@
 	- update FRS (&#10003;)
 	- Mengganti retur model
 ```php
-//controller
+//controllers
 $perpanjang = $this->returmodel->retur($save, $mainNumber, true);
 
 //model
