@@ -1,8 +1,8 @@
-# Anggota/Member [&#10003;]
+# Anggota/Member/ [&#10003;]
 ## Modul
 - **Search** [&#10003;]
 ```php
-//controller search
+//controller seacrh
 $data['cari'] = $cari;
 $this->db->select('u.userAccount,u.userName,u.userEmail,u.userEmailITB,u.userAddress, u.userINA, u.userPhone, u.campusCode,u.userType,u.rootID, u.officeAccount,u.userOrientationed,t.typeName, t.typeCss');
 $this->db->join('user_type t', 't.id = u.userType', 'left');

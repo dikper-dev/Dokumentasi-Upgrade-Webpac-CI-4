@@ -578,19 +578,3 @@ if ($this->session->userID == $staffID) {
 
 return redirect()->to($this->base_ctrl . '?q=read&id=' . $staffID)->with('pesan', ['success', 'Berhasil Update <b>' . $staffName . '</b>']);
 ```
-- **Resize Image** [&#10003;]
-```php
-//tapi jadi jelek kualitasnya
-function resizeImage($filePathName, $name) //done
-{
-    $image = \Config\Services::image();
-    try {
-        $image->withFile($filePathName . $name)
-            ->resize(450, 500, true, 'height')
-            ->save($filePathName . $name, 100);
-    } catch (CodeIgniter\Images\Exceptions\ImageException $e) {
-        var_dump($e->getMessage());
-        die;
-    }
-}
-```

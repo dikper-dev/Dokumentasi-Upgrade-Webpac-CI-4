@@ -7,7 +7,7 @@
 	- update FRS (&#10003;)
 	- Mengganti retur model
 ```php
-//controllers
+//controller
 $perpanjang = $this->returmodel->retur($save, $mainNumber, true);
 
 //model
@@ -118,9 +118,7 @@ function retur($data, $id, $reloan=false) {
 	}
 }
 ```
-
 to
-
 ```php
 function retur($data, $loanID, $reloan = false)
 {
@@ -237,7 +235,6 @@ function retur($data, $loanID, $reloan = false)
 	}
 }
 ```
-
 - bp [&#10003;]
 - loanMail [&#10003;]
 - in_reloan_staf [&#10003;]
