@@ -5,7 +5,7 @@
 </p>
 
 ## Dokumentasi
-  Terus cek dan update [Mind Map](https://github.com/dikper-dev/webpac/blob/main/document/Mind-Map.md)
+  Terus cek dan update [Mind Map](https://github.com/dikper-dev/webpac/blob/main/document/Mind-Map.md) proses webpac lama.
   ```
   hijau, biru :: done
   kuning ada :: catatan
