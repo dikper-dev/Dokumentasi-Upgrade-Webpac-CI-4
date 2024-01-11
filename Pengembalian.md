@@ -18,7 +18,7 @@ $where['loan.returnedDate !='] = 'null';
 //to
  $where['loan.returnedDate !='] = '0000-00-00';
 ```
-![Alt text](<WhatsApp Image 2023-12-22 at 13.44.55_1999dc50.jpg>)
+![Alt text](<img/WhatsApp Image 2023-12-22 at 13.44.55_1999dc50.jpg>)
 
 - last return done
 -- by staff done
@@ -43,7 +43,7 @@ TEMUAN KASUS DOKUMENTASI ADA DI WA
 
 -- ini juga klo sudah dikasuskan semua list, total denda jadi 0 (by where), jadi status dibawah ga mauncul
 
-![Alt text](image.png)
+![Alt text](img/image.png)
 ```php
 //v retur
 if (session('ownerActiveFine')) :
