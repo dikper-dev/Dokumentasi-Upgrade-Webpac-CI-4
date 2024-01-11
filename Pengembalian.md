@@ -7,8 +7,11 @@ View Index
 - Daftar Pengembalian search by nim/nip tanggal done
 
 - laporan denda
+
 *NOTE Jika ada total denda yang tidak sesuai, cek dulu lapaoran denda, siapa tau ada yang kasus*
+
 -- 'finePayProvider' => NULL done
+
 -- rekap
 
 - Lihat history return done
@@ -21,24 +24,35 @@ $where['loan.returnedDate !='] = 'null';
 ![Alt text](<img/WhatsApp Image 2023-12-22 at 13.44.55_1999dc50.jpg>)
 
 - last return done
+
 -- by staff done
+
 -- by nim done
+
 -- by tanggal done
 
 - save done
+
 -- modal pesan pinjam done
+
 -- kirim email pesan pinjam done
 
 - pembayaran denda done
+
 -- update fine log done
+
 -- update loan done
 
 - edit denda yang sudah dibayar
+
 -- update loan done
+
 -- update log_loan_fine done
+
 NOTE kalo edit, ga usah update fine log, biar ketauan awal dendanya. waloupun di log_loan_fine dimasukin semua
 
 TEMUAN KASUS DOKUMENTASI ADA DI WA
+
 -- jika 1 user ada beberapa buku yang denda, jika 1 diproses kasuskan. kemudian jika ada buku yg menyusul dikembalikan. maka hasilnya seperti ini tombol bayar atau kasuskan tidak ada
 
 -- ini juga klo sudah dikasuskan semua list, total denda jadi 0 (by where), jadi status dibawah ga mauncul
@@ -56,9 +70,13 @@ endif;
 ```
 
 - kasuskan denda done
+
 -- update fine log done
+
 -- update loan done
+
 -- update user_case done
+
 -- update frs dan wisuda json
 
 *CATATAN*
