@@ -5,14 +5,12 @@
 </p>
 
 ## Dokumentasi
-  Selalu cek [Mind Map](https://github.com/dikper-dev/webpac/blob/main/document/Mind-Map.md)
+  Terus cek dan update [Mind Map](https://github.com/dikper-dev/webpac/blob/main/document/Mind-Map.md)
   ```
-  hijau biru :: done
+  hijau, biru :: done
   kuning ada :: catatan
   merah on :: progress
   ```
-
-  Progress Upgrade webpac [cek](https://github.com/dikper-dev/Dokumentasi-Upgrade-Webpac-CI-4).
 
 ## Ingat
   - Naikin performa website
