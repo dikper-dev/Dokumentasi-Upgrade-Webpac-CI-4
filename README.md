@@ -272,10 +272,10 @@ Dokumntasi [here](https://preview.keenthemes.com/html/metronic/docs/index).
 - **All Config Structure**
   - Config `[Union.php]`
 
-**CATATAN saja**
 
-*Belajar Tambahin SEO*
-```
+**Belajar SEO**
+```php
+// via url 
 $decodedInput = urldecode((string) $cleanInput);
 $q = url_title($decodedInput, '-', true);
 stackoverflow
@@ -290,6 +290,8 @@ or
 https://www.amazon.com/-/es/Eric-Lundquist/dp/B00EDS687Y
 :: {localization}/url_title{slug_author}/detail_page/id
 ```
+
+**CATATAN saja**
 
 ```
 apakah view cell itu 1 control 1 fungsi ?
